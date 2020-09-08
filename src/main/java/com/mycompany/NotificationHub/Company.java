@@ -5,7 +5,11 @@
  */
 package com.mycompany.NotificationHub;
 
+import com.mycompany.NotificationHub.DTOs.MailDTO;
 import com.mycompany.NotificationHub.DTOs.SMSDTO;
+import com.mycompany.NotificationHub.Exceptions.BlackListException;
+import com.mycompany.NotificationHub.Exceptions.NoServiceFoundException;
+import com.mycompany.NotificationHub.Exceptions.TwoMonthsNotPaidException;
 import com.mycompany.NotificationHub.Interfaces.Language;
 import java.util.ArrayList;
 
@@ -29,9 +33,25 @@ public class Company extends Customer{
         this.postGroup = postGroup;
     }
     
-    public void sendSMSToPostGroup(String content){
+    public void sendSMSToPostGroup(SMSDTO smsData){
+        try{
         for(User recipient: postGroup){
-            sendSMS(new SMS(new SMSDTO(recipient.getPhoneNumber(),content)));
+            smsData.setPhoneNumberTo(recipient.getPhoneNumber());
+            sendSMS(smsData);
+        }
+        }catch(TwoMonthsNotPaidException | BlackListException | NoServiceFoundException e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void sendEmailToPostGroup(MailDTO mailData){
+        try{
+            for(User recipient: postGroup){
+                mailData.setMailTo(recipient.getEmail());
+                sendEmail(mailData);
+            }
+        }catch(TwoMonthsNotPaidException | BlackListException | NoServiceFoundException e){
+            e.printStackTrace();
         }
     }
 }

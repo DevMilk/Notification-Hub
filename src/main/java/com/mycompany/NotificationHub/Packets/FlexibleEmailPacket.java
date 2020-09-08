@@ -5,13 +5,14 @@
  */
 package com.mycompany.NotificationHub.Packets;
 
+import com.mycompany.NotificationHub.Packets.PacketModels.EmailPacket;
 import com.mycompany.NotificationHub.Packets.PacketModels.FlexiblePacket;
 
 /**
  *
  * @author Ugur
  */
-public class FlexibleEmailPacket extends FlexiblePacket{
+public class FlexibleEmailPacket extends FlexiblePacket implements EmailPacket{
 
     public FlexibleEmailPacket() {
         super();

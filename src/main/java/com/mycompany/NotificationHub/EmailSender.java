@@ -12,15 +12,26 @@ import com.mycompany.NotificationHub.Interfaces.Post;
  *
  * @author Ugur
  */
-public class Email extends Post{
-    private MailDTO mail;
+public class EmailSender extends Post{
+    private MailDTO mailData;
     
-    public Email(MailDTO mail){
-        this.mail = mail;
+    public EmailSender(MailDTO mailData){
+        this.mailData = mailData;
+    }
+
+    public EmailSender() {
+    }
+
+    public MailDTO getMailData() {
+        return mailData;
+    }
+
+    public void setData(MailDTO mailData) {
+        this.mailData = mailData;
     }
     
     public void send(){
         
-        System.out.println(this.mail.getContent());
+        System.out.println(this.mailData.getContent());
     }
 }

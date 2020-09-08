@@ -12,11 +12,7 @@ import java.util.ArrayDeque;
  *
  * @author Ugur
  */
-public class FixedPacket extends Packet{
-
-    public FixedPacket() {
-        super();
-    }
+public abstract class FixedPacket extends Packet{
 
     @Override
     public double calculateCurrentCost() {

@@ -12,6 +12,24 @@ import com.mycompany.NotificationHub.Interfaces.Language;
  * @author Ugur
  */
 public class English implements Language{
+
+    @Override
+    public String Message(Exception e) {
+        switch(e.getClass().getName()){
+            case "BlackListException":
+                return "Cannot send message because you are in black list.";
+            case "TwoMonthsNotPaidException":
+                return "No payment has been made for 2 months from the date of registration, account moved to black list.";
+            case "NotEnoughMoneyException":
+                return "Payment Account is not enough for payment.";
+            case "NoServiceFoundException":
+                return "Payment Account is not enough for payment.";
+            default:
+                break;
+        }
+        return "Undefined Error";
+    }
+    
     
     public String BlackListExceptionMessage(){
         return "Cannot send message because you are in black list.";

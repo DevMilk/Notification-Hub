@@ -18,11 +18,16 @@ public abstract class Packet {
     protected double packetPrice;
     protected LocalDateTime registrationDate;
     
-    public Packet() {
-    }
     
+    public Packet(){
+        registerPacket();
+    }
     //Calculation varies due to packet models (fixed or flexible)
     public abstract double calculateCurrentCost();
+
+    public void setRegistrationDate(LocalDateTime registrationDate) {
+        this.registrationDate = registrationDate;
+    }
     
     public LocalDateTime getRegistrationDate() {
         return registrationDate;
@@ -36,5 +41,9 @@ public abstract class Packet {
     }; 
     public void resetPacket(){
         postCounter = 0;
+    }
+    public void registerPacket(){
+        resetPacket();
+        registrationDate = LocalDateTime.now();
     }
 }

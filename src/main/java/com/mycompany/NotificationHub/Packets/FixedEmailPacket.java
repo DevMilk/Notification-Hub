@@ -5,18 +5,20 @@
  */
 package com.mycompany.NotificationHub.Packets;
 
+import com.mycompany.NotificationHub.Packets.PacketModels.EmailPacket;
 import com.mycompany.NotificationHub.Packets.PacketModels.FixedPacket;
 
 /**
  *
  * @author Ugur
  */
-public class FixedEmailPacket extends FixedPacket{
+public class FixedEmailPacket extends FixedPacket implements EmailPacket{
 
     public FixedEmailPacket() {
         super();
         this.postLimit = 1000;
         this.packetPrice = 10;
+        
     }
     
 }

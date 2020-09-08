@@ -10,7 +10,7 @@ package com.mycompany.NotificationHub.Interfaces;
  * @author Ugur
  */
 public interface Language {
-    
+    String Message(Exception e);
     String BlackListExceptionMessage();
     String TwoMonthsNotPaidExceptionMessage();
     String NotEnoughMoneyExceptionMessage();

@@ -9,9 +9,13 @@ package com.mycompany.NotificationHub.Exceptions;
  *
  * @author Ugur
  */
-public class BlackListException extends Exception {
+public class MultilingualException extends Exception {
 
-    public BlackListException(String message) {
+    public MultilingualException() {
+    }
+
+    public MultilingualException(String message) {
         super(message);
     }
+    
 }

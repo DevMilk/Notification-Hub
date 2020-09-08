@@ -6,12 +6,13 @@
 package com.mycompany.NotificationHub.Packets;
 
 import com.mycompany.NotificationHub.Packets.PacketModels.FlexiblePacket;
+import com.mycompany.NotificationHub.Packets.PacketModels.SMSPacket;
 
 /**
  *
  * @author Ugur
  */
-public class FlexibleSMSPacket extends FlexiblePacket{
+public class FlexibleSMSPacket extends FlexiblePacket implements SMSPacket{
     
     public FlexibleSMSPacket() {
         super();

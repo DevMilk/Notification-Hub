@@ -11,16 +11,13 @@ import com.mycompany.NotificationHub.AbstractClasses.Packet;
  *
  * @author Ugur
  */
-public class FlexiblePacket extends Packet{
+public abstract class FlexiblePacket extends Packet{
     protected double additionalCost;
 
-    public FlexiblePacket() {
-        super();
-    }
     
     @Override
     public double calculateCurrentCost() {
-        return packetPrice* Math.max(0,postCounter-postLimit)*additionalCost;
+        return packetPrice+ Math.max(0,postCounter-postLimit)*additionalCost;
     }
     
 }

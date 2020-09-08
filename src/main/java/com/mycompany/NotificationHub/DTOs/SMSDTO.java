@@ -19,7 +19,9 @@ public class SMSDTO extends PostDTO{
         super(content);
         this.phoneNumberTo = phoneNumberTo;
     }
-
+    public SMSDTO(String content){
+        super(content);
+    }
     public String getPhoneNumberTo() {
         return phoneNumberTo;
     }

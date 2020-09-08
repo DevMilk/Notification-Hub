@@ -19,7 +19,9 @@ public class MailDTO extends PostDTO{
         super(content);
         this.mailTo = mailTo;
     }
-
+    public MailDTO(String content){
+        super(content);
+    }
     public String getMailTo() {
         return mailTo;
     }

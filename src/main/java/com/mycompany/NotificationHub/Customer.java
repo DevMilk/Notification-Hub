@@ -8,6 +8,8 @@ package com.mycompany.NotificationHub;
 import com.mycompany.NotificationHub.Exceptions.NoServiceFoundException;
 import com.mycompany.NotificationHub.Exceptions.BlackListException;
 import com.mycompany.NotificationHub.AbstractClasses.Packet;
+import com.mycompany.NotificationHub.DTOs.MailDTO;
+import com.mycompany.NotificationHub.DTOs.SMSDTO;
 import com.mycompany.NotificationHub.Exceptions.NotEnoughMoneyException;
 import com.mycompany.NotificationHub.Exceptions.TwoMonthsNotPaidException;
 import com.mycompany.NotificationHub.Interfaces.Language;
@@ -28,6 +30,9 @@ public class Customer {
     protected Packet smsPacket;
     protected Packet emailPacket;
     protected PaymentAccount account;
+    protected EmailSender emailSenderApp;
+    protected SmsSender smsSenderApp;
+    
     public Customer(String name, String email, String phoneNumber, Language language) {
         uniqueID = UUID.randomUUID().toString();
         this.name = name;
@@ -61,6 +66,22 @@ public class Customer {
         return email;
     }
 
+    public EmailSender getEmailSenderApp() {
+        return emailSenderApp;
+    }
+
+    public void setEmailSenderApp(EmailSender emailSenderApp) {
+        this.emailSenderApp = emailSenderApp;
+    }
+
+    public SmsSender getSmsSenderApp() {
+        return smsSenderApp;
+    }
+
+    public void setSmsSenderApp(SmsSender smsSenderApp) {
+        this.smsSenderApp = smsSenderApp;
+    }
+    
     public void setEmail(String email) {
         this.email = email;
     }
@@ -86,6 +107,22 @@ public class Customer {
         return language;
     }
 
+    public String getUniqueID() {
+        return uniqueID;
+    }
+
+    public PaymentAccount getAccount() {
+        return account;
+    }
+
+    public Packet getSmsPacket() {
+        return smsPacket;
+    }
+
+    public Packet getEmailPacket() {
+        return emailPacket;
+    }
+
     public void setLanguage(Language language) {
         this.language = language;
     }
@@ -95,48 +132,34 @@ public class Customer {
             throw new NoServiceFoundException(language.NoServiceFoundExceptionMessage());
         return PacketService;
     }
-    public void sendSMS(SMS sms) throws TwoMonthsNotPaidException,BlackListException,NoServiceFoundException{
-        try{
-            getPacketService().checkForBlackList(language, uniqueID); //Check if company apper in black list
-            getPacketService().checkPacketBill(language, smsPacket); //Check packet bills if it   
-            sms.send();
-            smsPacket.usePacket();
-        }
-        catch(TwoMonthsNotPaidException | BlackListException | NoServiceFoundException e ){
-            e.printStackTrace();
-            throw e;
-        }
+    public void sendSMS(SMSDTO smsData) throws TwoMonthsNotPaidException,BlackListException,NoServiceFoundException{
+        getPacketService().checkForBlackList(language, uniqueID); //Check if company apper in black list
+        getPacketService().checkPacketBill(language, smsPacket); //Check packet bills if it   
+        smsSenderApp.setData(smsData);
+        smsSenderApp.send();
+        smsPacket.usePacket();
         
     }
     
-    public void sendEmail(Email email) throws TwoMonthsNotPaidException,BlackListException,NoServiceFoundException {
-        try{
-            getPacketService().checkForBlackList(language,uniqueID);
-            getPacketService().checkPacketBill(language,emailPacket);
-            email.send();
-            emailPacket.usePacket();
-        }
-        catch(TwoMonthsNotPaidException | BlackListException | NoServiceFoundException e ){
-            e.printStackTrace();
-            throw e;
-        }
+    public void sendEmail(MailDTO mailData) throws TwoMonthsNotPaidException,BlackListException,NoServiceFoundException {
+        getPacketService().checkForBlackList(language,uniqueID);
+        getPacketService().checkPacketBill(language,emailPacket);
+        emailSenderApp.setData(mailData);
+        emailSenderApp.send();
+        emailPacket.usePacket();
         
     }
-    
-    public void paySMSPacketBill() throws NotEnoughMoneyException,NoServiceFoundException {
+    protected void payPacketBill(Packet packet )  {
         try{
-            getPacketService().payBill(language,account, smsPacket);
+            getPacketService().payBill(account, packet,language);
         }catch(NotEnoughMoneyException |  NoServiceFoundException  e){
             e.printStackTrace();
-            throw e;
         }
     }
-    public void payEmailPacketBill() throws NotEnoughMoneyException,NoServiceFoundException{
-        try{
-            getPacketService().payBill(language,account, emailPacket);
-        }catch(NotEnoughMoneyException |  NoServiceFoundException e){
-            e.printStackTrace();
-            throw e;
-        }
+    public void paySMSPacketBill() {
+        payPacketBill(smsPacket);
+    }
+    public void payEmailPacketBill(){
+        payPacketBill(emailPacket);
     }
 }

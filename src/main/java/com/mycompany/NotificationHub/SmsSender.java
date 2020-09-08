@@ -5,6 +5,7 @@
  */
 package com.mycompany.NotificationHub;
 
+import com.mycompany.NotificationHub.DTOs.PostDTO;
 import com.mycompany.NotificationHub.DTOs.SMSDTO;
 import com.mycompany.NotificationHub.Interfaces.Post;
 
@@ -12,17 +13,27 @@ import com.mycompany.NotificationHub.Interfaces.Post;
  *
  * @author Ugur
  */
-public class SMS extends Post{
+public class SmsSender extends Post{
+    private SMSDTO smsData;
 
-    public SMS(SMSDTO DTO) {
-        this.packet = packet;
-        this.DTO = DTO;
+    public SmsSender() {
     }
 
+    public SMSDTO getSmsData() {
+        return smsData;
+    }
+
+    public void setData(SMSDTO smsData) {
+        this.smsData = smsData;
+    }
+
+    public SmsSender(SMSDTO smsData) {
+        this.smsData = smsData;
+    }
     
     @Override
     protected void send() {
-        System.out.println(DTO.toString());
+        System.out.println(smsData.getContent());
         
     }
 

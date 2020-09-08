@@ -48,19 +48,17 @@ public class Service {
     
     }
 
-    public void payBill(Language language,PaymentAccount currentAccount, Packet packet) throws NotEnoughMoneyException{
+    public void payBill(PaymentAccount currentAccount, Packet packet, Language language) throws NotEnoughMoneyException{
         try{
-            double currentBill = packet.calculateCurrentCost();
-            currentAccount.pay(currentBill);
-            packet.resetPacket();
-        }
-        catch(NotEnoughMoneyException e){
-            throw new NotEnoughMoneyException(language.NotEnoughMoneyExceptionMessage()); 
-            
+        double currentBill = packet.calculateCurrentCost();
+        currentAccount.pay(currentBill);
+        packet.resetPacket();
+        } catch(NotEnoughMoneyException e){
+            throw new NotEnoughMoneyException(language.NotEnoughMoneyExceptionMessage());
         }
     }
-    private void addToBlackList(String SenderName){
-        BlackList.add(SenderName);
+    public void addToBlackList(String SenderId){
+        BlackList.add(SenderId);
     }
     public void checkForBlackList(Language language,String uniqueID) throws BlackListException{
         
@@ -69,7 +67,14 @@ public class Service {
     
     }
     
-    public void registerToPacket(Customer customer, Packet packet){
+    /*public void registerToSMSPacket(Customer customer, SMSPacket packet){
+        ((Packet)packet).registerPacket();
+        customer.setSmsPacket(((Packet)packet));
         
     }
+    public void registerToEmailPacket(Customer customer, Packet packet){
+        packet.registerPacket();
+        customer.setEmailPacket(packet);
+        
+    }*/
 }

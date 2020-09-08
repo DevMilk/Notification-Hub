@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.NotificationHub.Interfaces;
-
+package com.mycompany.NotificationHub.Packets.PacketModels;
 
 /**
  *
  * @author Ugur
  */
-public abstract class Post {
+public interface SMSPacket {
     
-    protected abstract void send();
 }
