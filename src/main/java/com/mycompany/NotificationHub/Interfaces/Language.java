@@ -13,7 +13,6 @@ public interface Language {
     
     String BlackListExceptionMessage();
     String TwoMonthsNotPaidExceptionMessage();
-    String NoBillsExistsExceptionMessage();
     String NotEnoughMoneyExceptionMessage();
     String NoServiceFoundExceptionMessage();
 }

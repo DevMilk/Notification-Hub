@@ -8,7 +8,6 @@ package com.mycompany.NotificationHub;
 import com.mycompany.NotificationHub.Exceptions.NoServiceFoundException;
 import com.mycompany.NotificationHub.Exceptions.BlackListException;
 import com.mycompany.NotificationHub.AbstractClasses.Packet;
-import com.mycompany.NotificationHub.Exceptions.NoBillsExistsException;
 import com.mycompany.NotificationHub.Exceptions.NotEnoughMoneyException;
 import com.mycompany.NotificationHub.Exceptions.TwoMonthsNotPaidException;
 import com.mycompany.NotificationHub.Interfaces.Language;
@@ -40,6 +39,22 @@ public class Customer {
     
     public Customer(Service PacketService) {
         this.PacketService = PacketService;
+    }
+
+    public void setPacketService(Service PacketService) {
+        this.PacketService = PacketService;
+    }
+
+    public void setSmsPacket(Packet smsPacket) {
+        this.smsPacket = smsPacket;
+    }
+
+    public void setEmailPacket(Packet emailPacket) {
+        this.emailPacket = emailPacket;
+    }
+
+    public void setAccount(PaymentAccount account) {
+        this.account = account;
     }
     
     public String getEmail() {
@@ -80,7 +95,7 @@ public class Customer {
             throw new NoServiceFoundException(language.NoServiceFoundExceptionMessage());
         return PacketService;
     }
-    public void sendSMS(SMS sms){
+    public void sendSMS(SMS sms) throws TwoMonthsNotPaidException,BlackListException,NoServiceFoundException{
         try{
             getPacketService().checkForBlackList(language, uniqueID); //Check if company apper in black list
             getPacketService().checkPacketBill(language, smsPacket); //Check packet bills if it   
@@ -89,11 +104,12 @@ public class Customer {
         }
         catch(TwoMonthsNotPaidException | BlackListException | NoServiceFoundException e ){
             e.printStackTrace();
+            throw e;
         }
         
     }
     
-    public void sendEmail(Email email) throws TwoMonthsNotPaidException,BlackListException {
+    public void sendEmail(Email email) throws TwoMonthsNotPaidException,BlackListException,NoServiceFoundException {
         try{
             getPacketService().checkForBlackList(language,uniqueID);
             getPacketService().checkPacketBill(language,emailPacket);
@@ -102,22 +118,25 @@ public class Customer {
         }
         catch(TwoMonthsNotPaidException | BlackListException | NoServiceFoundException e ){
             e.printStackTrace();
+            throw e;
         }
         
     }
     
-    public void paySMSPacketBill(){
+    public void paySMSPacketBill() throws NotEnoughMoneyException,NoServiceFoundException {
         try{
             getPacketService().payBill(language,account, smsPacket);
-        }catch(NotEnoughMoneyException | NoBillsExistsException | NoServiceFoundException  e){
+        }catch(NotEnoughMoneyException |  NoServiceFoundException  e){
             e.printStackTrace();
+            throw e;
         }
     }
-    public void payEmailPacketBill(){
+    public void payEmailPacketBill() throws NotEnoughMoneyException,NoServiceFoundException{
         try{
             getPacketService().payBill(language,account, emailPacket);
-        }catch(NotEnoughMoneyException | NoBillsExistsException | NoServiceFoundException e){
+        }catch(NotEnoughMoneyException |  NoServiceFoundException e){
             e.printStackTrace();
+            throw e;
         }
     }
 }

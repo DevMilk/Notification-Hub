@@ -20,10 +20,6 @@ public class English implements Language{
         return "No payment has been made for 2 months from the date of registration, account moved to black list.";
     }
 
-    @Override
-    public String NoBillsExistsExceptionMessage() {
-        return "no invoices to be paid.";
-    }
 
     @Override
     public String NotEnoughMoneyExceptionMessage() {

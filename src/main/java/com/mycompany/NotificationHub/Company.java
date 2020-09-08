@@ -16,8 +16,8 @@ import java.util.ArrayList;
 public class Company extends Customer{
 
     ArrayList<User> postGroup;
-    public Company(String name, String email, String phoneNumber, int smsQuota, int emailQuota, Language language) {
-        super(name,email, phoneNumber, smsQuota, emailQuota,language);
+    public Company(String name, String email, String phoneNumber, Language language) {
+        super(name, email, phoneNumber, language);
         postGroup = new ArrayList();
     }
 

@@ -7,15 +7,10 @@ package com.mycompany.NotificationHub;
 
 import com.mycompany.NotificationHub.Exceptions.BlackListException;
 import com.mycompany.NotificationHub.AbstractClasses.Packet;
-import com.mycompany.NotificationHub.Exceptions.NoBillsExistsException;
 import com.mycompany.NotificationHub.Exceptions.NotEnoughMoneyException;
 import com.mycompany.NotificationHub.Exceptions.TwoMonthsNotPaidException;
 import com.mycompany.NotificationHub.Interfaces.Language;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Queue;
 
 /**
  *
@@ -26,8 +21,11 @@ public class Service {
 
     
     private ArrayList<String> BlackList;
-    public Service(ArrayList<String> BlackList) {
+    private int delayTimeInMonths;
+    
+    public Service(ArrayList<String> BlackList, int delayTimeInMonths) {
         this.BlackList = BlackList;
+        this.delayTimeInMonths = delayTimeInMonths;
     }
     public Service() {
         this.BlackList = new ArrayList();
@@ -36,24 +34,28 @@ public class Service {
         return BlackList;
     }
 
-    public void checkPacketBill(Language language, Packet packet) throws TwoMonthsNotPaidException{
-        Queue<Double> bills =  packet.getRemainingBills();
-        if(bills.size()>=2)
-            throw new TwoMonthsNotPaidException(language.TwoMonthsNotPaidExceptionMessage());
-        
+    public int getDelayTimeInMonths() {
+        return delayTimeInMonths;
     }
 
-    public void payBill(Language language,PaymentAccount currentAccount, Packet packet) throws NotEnoughMoneyException, NoBillsExistsException{
+    public void setDelayTimeInMonths(int delayTimeInMonths) {
+        this.delayTimeInMonths = delayTimeInMonths;
+    }
+
+    public void checkPacketBill(Language language, Packet packet) throws TwoMonthsNotPaidException{
+        if(packet.checkDaysPassed()>60 && packet.calculateCurrentCost()>0)
+            throw new TwoMonthsNotPaidException(language.TwoMonthsNotPaidExceptionMessage());
+    
+    }
+
+    public void payBill(Language language,PaymentAccount currentAccount, Packet packet) throws NotEnoughMoneyException{
         try{
-            double currentBill = packet.getCurrentBill();
+            double currentBill = packet.calculateCurrentCost();
             currentAccount.pay(currentBill);
-            packet.removeCurrentBill();
+            packet.resetPacket();
         }
-        catch(NotEnoughMoneyException | NoBillsExistsException e){
-            if(e instanceof NotEnoughMoneyException) {
-                throw new NotEnoughMoneyException(language.NotEnoughMoneyExceptionMessage()); 
-            }else
-                throw new NoBillsExistsException(language.NoBillsExistsExceptionMessage());
+        catch(NotEnoughMoneyException e){
+            throw new NotEnoughMoneyException(language.NotEnoughMoneyExceptionMessage()); 
             
         }
     }

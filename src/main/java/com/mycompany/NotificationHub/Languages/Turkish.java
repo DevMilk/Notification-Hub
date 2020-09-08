@@ -21,11 +21,6 @@ public class Turkish implements Language{
     }
 
     @Override
-    public String NoBillsExistsExceptionMessage() {
-        return "Ödenecek Bir Fatura Yok.";
-    }
-
-    @Override
     public String NotEnoughMoneyExceptionMessage() {
         return "Hesapta yeterli para mevcut değil.";
     }
