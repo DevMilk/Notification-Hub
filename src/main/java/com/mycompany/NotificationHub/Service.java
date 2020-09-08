@@ -68,4 +68,8 @@ public class Service {
             throw new BlackListException(language.BlackListExceptionMessage());
     
     }
+    
+    public void registerToPacket(Customer customer, Packet packet){
+        
+    }
 }

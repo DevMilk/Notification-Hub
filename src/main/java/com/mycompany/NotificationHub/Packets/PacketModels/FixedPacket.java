@@ -19,8 +19,7 @@ public class FixedPacket extends Packet{
     }
 
     @Override
-    protected double calculateCurrentMonthCost() {
-        remainingBills = new ArrayDeque<Double>(); 
+    public double calculateCurrentCost() {
         return Math.ceil((double)postCounter/postLimit)*packetPrice;
     }
     

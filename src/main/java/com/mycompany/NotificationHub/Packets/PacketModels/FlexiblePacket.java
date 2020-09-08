@@ -19,7 +19,7 @@ public class FlexiblePacket extends Packet{
     }
     
     @Override
-    protected double calculateCurrentMonthCost() {
+    public double calculateCurrentCost() {
         return packetPrice* Math.max(0,postCounter-postLimit)*additionalCost;
     }
     
