@@ -5,9 +5,6 @@
  */
 package com.mycompany.NotificationHub.Packets.PacketModels;
 
-import com.mycompany.NotificationHub.AbstractClasses.Packet;
-import java.util.ArrayDeque;
-
 /**
  *
  * @author Ugur

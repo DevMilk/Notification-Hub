@@ -3,12 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.NotificationHub.Packets.PacketModels;
+package com.mycompany.NotificationHub.Exceptions;
 
 /**
  *
  * @author Ugur
  */
-public interface SMSPacket {
+public class NoPacketDefinedException extends Exception {
+
+    public NoPacketDefinedException(String message) {
+        super(message);
+    }
     
 }

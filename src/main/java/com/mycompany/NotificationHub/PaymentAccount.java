@@ -12,7 +12,11 @@ import com.mycompany.NotificationHub.Exceptions.NotEnoughMoneyException;
  * @author Ugur
  */
 public class PaymentAccount {
+    
+    //Current money in account 
     private double currentMoney;
+    
+    //Limit for debt
     private double debtLimit;
 
     public PaymentAccount(double currentMoney, double debtLimit) {
@@ -20,11 +24,13 @@ public class PaymentAccount {
         this.debtLimit = debtLimit;
     }
     
+    //If payment not meets the need, throw exception 
     public void pay(double price) throws NotEnoughMoneyException{
         if(currentMoney -price < - debtLimit)
             throw new NotEnoughMoneyException();
         currentMoney-=price;
     }
+    
     public void load(double price){
         currentMoney+=price;
     }

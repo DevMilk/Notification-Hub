@@ -6,15 +6,14 @@
 package com.mycompany.NotificationHub.Packets;
 
 import com.mycompany.NotificationHub.Packets.PacketModels.FixedPacket;
-import com.mycompany.NotificationHub.Packets.PacketModels.SMSPacket;
 
 /**
  *
  * @author Ugur
  */
-public class FixedSMSPacket extends FixedPacket implements SMSPacket {
+public class FixedPacketForSMS extends FixedPacket {
 
-    public FixedSMSPacket() {
+    public FixedPacketForSMS() {
         super();
         this.postLimit = 1000;
         this.packetPrice = 20;

@@ -5,8 +5,6 @@
  */
 package com.mycompany.NotificationHub.DTOs;
 
-import com.mycompany.NotificationHub.DTOs.PostDTO;
-
 /**
  *
  * @author Ugur
@@ -14,20 +12,12 @@ import com.mycompany.NotificationHub.DTOs.PostDTO;
  */
 public class MailDTO extends PostDTO{
     
-    private String mailTo;
     public MailDTO(String mailTo, String content){
         super(content);
-        this.mailTo = mailTo;
+        this.To = mailTo;
     }
     public MailDTO(String content){
         super(content);
-    }
-    public String getMailTo() {
-        return mailTo;
-    }
-
-    public void setMailTo(String mail) {
-        this.mailTo = mail;
     }
     
 }

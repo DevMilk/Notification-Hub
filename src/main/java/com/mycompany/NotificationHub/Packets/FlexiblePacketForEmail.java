@@ -5,16 +5,15 @@
  */
 package com.mycompany.NotificationHub.Packets;
 
-import com.mycompany.NotificationHub.Packets.PacketModels.EmailPacket;
 import com.mycompany.NotificationHub.Packets.PacketModels.FlexiblePacket;
 
 /**
  *
  * @author Ugur
  */
-public class FlexibleEmailPacket extends FlexiblePacket implements EmailPacket{
+public class FlexiblePacketForEmail extends FlexiblePacket {
 
-    public FlexibleEmailPacket() {
+    public FlexiblePacketForEmail() {
         super();
         this.postLimit = 2000;
         this.packetPrice = 7.5;

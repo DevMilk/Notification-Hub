@@ -10,8 +10,8 @@ package com.mycompany.NotificationHub.DTOs;
  * @author Ugur
  */
 public class PostDTO {
-    private String content;
-    
+    protected String content;
+    protected String To;
     public PostDTO(String content ){
         this.content = content;
     }
@@ -22,5 +22,16 @@ public class PostDTO {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getTo() {
+        return To;
+    }
+
+    public void setTo(String To) {
+        this.To = To;
+    }
+    public String toString(){
+        return "To: " + To + " Content: " + content;
     }
 }

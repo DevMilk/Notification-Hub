@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.NotificationHub.AbstractClasses;
+package com.mycompany.NotificationHub.Packets.PacketModels;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -12,11 +12,11 @@ import java.time.temporal.ChronoUnit;
  *
  * @author Ugur
  */
-public abstract class Packet {
-    protected int postLimit;
-    protected int postCounter;
-    protected double packetPrice;
-    protected LocalDateTime registrationDate;
+public abstract class Packet  {
+    protected int postLimit; //Limit that when reached, packet extends due to its packet model    
+    protected int postCounter; //Counter keeps how mant post sended
+    protected double packetPrice; //First payment of packet
+    protected LocalDateTime registrationDate; //Registration date of packet.
     
     
     public Packet(){
@@ -24,7 +24,6 @@ public abstract class Packet {
     }
     //Calculation varies due to packet models (fixed or flexible)
     public abstract double calculateCurrentCost();
-
     public void setRegistrationDate(LocalDateTime registrationDate) {
         this.registrationDate = registrationDate;
     }
@@ -42,6 +41,8 @@ public abstract class Packet {
     public void resetPacket(){
         postCounter = 0;
     }
+    
+    //Reset counter and date to register packet
     public void registerPacket(){
         resetPacket();
         registrationDate = LocalDateTime.now();

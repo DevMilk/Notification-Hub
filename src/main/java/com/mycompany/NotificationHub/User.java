@@ -5,7 +5,7 @@
  */
 package com.mycompany.NotificationHub;
 
-import com.mycompany.NotificationHub.Interfaces.Language;
+import com.mycompany.NotificationHub.Languages.Language;
 
 /**
  *
@@ -14,12 +14,14 @@ import com.mycompany.NotificationHub.Interfaces.Language;
  */
 public class User extends Customer{
     private String surname;
-    private String email;
-    private String phoneNumber;
     public User(String name, String surname, String email, String phoneNumber, Language language){
         super(name,email,phoneNumber, language);
         this.surname = surname;
         
+    }
+
+    public String getSurname() {
+        return surname;
     }
 
  

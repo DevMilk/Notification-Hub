@@ -9,13 +9,15 @@ package com.mycompany.NotificationHub.Exceptions;
  *
  * @author Ugur
  */
-public class MultilingualException extends Exception {
+public class UserAlreadyExistsInPostGroupException extends Exception {
 
-    public MultilingualException() {
+    public UserAlreadyExistsInPostGroupException() {
+        
     }
 
-    public MultilingualException(String message) {
+    public UserAlreadyExistsInPostGroupException(String message) {
         super(message);
     }
+    
     
 }

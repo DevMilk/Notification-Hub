@@ -5,8 +5,6 @@
  */
 package com.mycompany.NotificationHub.Packets.PacketModels;
 
-import com.mycompany.NotificationHub.AbstractClasses.Packet;
-
 /**
  *
  * @author Ugur
